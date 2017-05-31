@@ -14,7 +14,7 @@ bool is_sorted(vector<int> vec)
     return true;
 }
 
-vector<int> swap_vec(vector<int> vec, int first, int second)
+vector<int> swap_vec(vector<int> vec, int first, int second) // zero-indexed!!!!
 {
     int temp = vec[first];
     vec[first] = vec[second];
@@ -22,12 +22,12 @@ vector<int> swap_vec(vector<int> vec, int first, int second)
     return vec;
 }
 
-vector<int> is_swappable(vector<int> unsorted_vec)
+vector<int> is_swappable(vector<int> unsorted_vec) // zero-indexed!!!!
 {
     vector<int> swapped, swap_these;
     for(int first = 0; first < unsorted_vec.size() - 1; first++)
     {
-        for(int second = first+1; second++)
+        for(int second = first+1; second < unsorted_vec.size(); second++)
         {
             swapped = swap_vec(unsorted_vec, first, second);
             if(is_sorted(swapped))
@@ -42,7 +42,7 @@ vector<int> is_swappable(vector<int> unsorted_vec)
 }
 
 
-vector<int> reverse_vec(vector<int> vec, int start, int end)
+vector<int> reverse_vec(vector<int> vec, int start, int end) // zero-indexed
 {
     int len = end - start;
     vector<int> temp;
@@ -58,7 +58,7 @@ vector<int> reverse_vec(vector<int> vec, int start, int end)
 }
 
 
-vector<int> is_reversable(vector<int> unsorted_vec)
+vector<int> is_reversable(vector<int> unsorted_vec) // zero-indexed
 {
     vector<int> reversed, reverse_these;
     if(unsorted_vec.size() <= 2) return reverse_these; // would've been caught by swap
@@ -91,24 +91,38 @@ void almost_sorted(vector<int> unsorted_vec)
         if(swap_these.size() > 0)
         {
             cout << "yes" << endl;
-            cout << "swap " << swap_these[0] << " " << swap_these[1] << endl;
+            cout << "swap " << swap_these[0] + 1 << " " << swap_these[1] + 1 << endl;
             return;
         }
         vector<int> reverse_these = is_reversable(unsorted_vec);
         if(reverse_these.size() > 0)
         {
             cout << "yes" << endl;
-            cout << "reverse " << reverse_these[0] << " " << reverse_these[1] << endl;
+            cout << "reverse " << reverse_these[0] + 1 << " " << reverse_these[1] + 1 << endl;
             return;
         }
     }
     cout << "no" << endl;
 }
 
+void print_vec(vector<int> v)
+{
+    cout << endl;
+    for(int vv: v) cout << vv << " ";
+}
+
 int main() {
+    
+    /*int a[] = {5,4,3,2,1};
+    vector<int> unsorted_vec(a, a+5);
+    int b[] = {1,5,3,3,0};
+    vector<int> sorted_vec(b, b+5);
+    vector<int> temp_vec = is_reversable(sorted_vec);
+    print_vec(temp_vec);*/
+    //almost_sorted(sorted_vec);
     int len, num;
-    cin >> len;
     vector<int> unsorted_vec;
+    cin >> len;
     for(int i = 0; i < len; i++)
     {
         cin >> num;
